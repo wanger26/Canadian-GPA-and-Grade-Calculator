@@ -1,0 +1,131 @@
+<resources>
+    <string name="app_name">Grade and GPA Calculator</string>
+    <string-array name="provinces">
+        <item>Alberta</item>
+        <item>British Columbia</item>
+        <item>Manitoba</item>
+        <item>New Brunswick</item>
+        <item>Newfoundland and Labrador</item>
+        <item>Nova Scotia</item>
+        <item>Ontario</item>
+        <item>Prince Edward Island</item>
+        <item>Quebec</item>
+        <item>Saskatchewan</item>
+    </string-array>
+
+    <string-array name="AlbertaSchools">
+       <item>Athabasca University</item>
+        <item>Concordia University of Edmonton</item>
+        <item>MacEwan University</item>
+        <item>Mount Royal University</item>
+        <item>The King’s University</item>
+        <item>University of Alberta</item>
+        <item>University of Calgary</item>
+        <item>University of Lethbridge</item>
+    </string-array>
+
+    <string-array name="BritishColumbiaSchools">
+        <item>Emily Carr University</item>
+        <item>Kwantlen Polytechnic University</item>
+        <item>Royal Roads University</item>
+        <item>Simon Fraser University</item>
+        <item>The University of British Columbia</item>
+        <item>Thompson Rivers University</item>
+        <item>Trinity Western University</item>
+        <item>University of Northern British Columbia</item>
+        <item>University of the Fraser Valley</item>
+        <item>University of Victoria</item>
+        <item>Vancouver Island University</item>
+    </string-array>
+
+    <string-array name="ManitobaSchools">
+        <item>Brandon University</item>
+        <item>Canadian Mennonite University</item>
+        <item>St. Paul’s College</item>
+        <item>The University of Winnipeg</item>
+        <item>University of Manitoba</item>
+    </string-array>
+
+    <string-array name="NewBrunswickSchools">
+        <item>Mount Allison University</item>
+        <item>St. Thomas University</item>
+        <item>University of New Brunswick</item>
+    </string-array>
+
+    <string-array name="NewfoundlandAndLabSchools">
+        <item>Memorial University of Newfoundland</item>
+    </string-array>
+
+    <string-array name="NovaScotiaSchools">
+        <item>Acadia University</item>
+        <item>Cape Breton Universityy</item>
+        <item>Dalhousie University</item>
+        <item>Mount Saint Vincent University</item>
+        <item>NSCAD University</item>
+        <item>Saint Mary’s University</item>
+        <item>St. Francis Xavier University</item>
+        <item>University of King’s College</item>
+    </string-array>
+
+    <string-array name="OntarioSchools">
+        <item>Algoma University</item>
+        <item>Brescia University College</item>
+        <item>Brock University</item>
+        <item>Carleton University</item>
+        <item>Huron University College</item>
+        <item>King’s University College</item>
+        <item>Lakehead University</item>
+        <item>Laurentian University</item>
+        <item>Georgian College</item>
+        <item>McMaster University</item>
+        <item>Nipissing University</item>
+        <item>Ontario Tech University</item>
+        <item>Queen’s University</item>
+        <item>Ryerson University</item>
+        <item>Saint Paul University</item>
+        <item>Trent University</item>
+        <item>University of Guelph</item>
+        <item>University of Ottawa</item>
+        <item>University of Toronto</item>
+        <item>University of Trinity College</item>
+        <item>University of Waterloo</item>
+        <item>University of Windsor</item>
+        <item>Victoria University</item>
+        <item>Western University</item>
+        <item>Wilfrid Laurier University</item>
+        <item>York University</item>
+    </string-array>
+
+    <string-array name="PEISchools">
+        <item>University of Prince Edward Island</item>
+    </string-array>
+
+    <string-array name="QuebecSchools">
+        <item>Bishop’s University</item>
+        <item>Concordia University</item>
+        <item>École de technologie supérieure</item>
+        <item>École nationale d’administration publique</item>
+        <item>HEC Montréal</item>
+        <item>Institut national de la recherche scientifique</item>
+        <item>McGill University</item>
+        <item>Polytechnique Montréal</item>
+        <item>Université de Montréal</item>
+        <item>Université de Sherbrooke</item>
+        <item>Université du Québec à Chicoutimi (UQAC)</item>
+        <item>Université du Québec à Montréal (UQAM)</item>
+        <item>Université du Québec à Trois-Rivières (UQTR)</item>
+        <item>Université du Québec en Abitibi-Témiscamingue (UQAT)</item>
+        <item>Université du Québec en Outaouais</item>
+        <item>Université Laval</item>
+
+    </string-array>
+
+    <string-array name="SaskatchewanSchools">
+        <item>Campion College</item>
+        <item>Luther College</item>
+        <item>St. Thomas More College</item>
+        <item>University of Regina</item>
+        <item>University of Saskatchewan</item>
+    </string-array>
+
+</resources>
