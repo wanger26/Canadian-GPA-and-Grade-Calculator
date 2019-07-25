@@ -16,13 +16,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 public class GPActivity extends AppCompatActivity {
-    public static boolean fromGPA=false;
-    public static double gradeGot=0;
-    private Spinner provinceSpinner;
-    private EditText[] names, weight, grade;
-    private Button[] btnGoToGradeCalculator;
-    private android.support.design.widget.FloatingActionButton[] addBTNs;
-    private int current=1;
+    public static boolean fromGPA=false; //A flag used to indicate if the grade calculator activity was called from the GPA Actvivity (true) or not
+    public static double gradeGot=0; //The grade calculated by this activity
+    private Spinner provinceSpinner; //Spinner storing the different provinces 
+    private EditText[] names, weight, grade; //The textfields storing the names of the evalautions, the weights of those evaluations and the grade recieved in those evaluations
+    private Button[] btnGoToGradeCalculator; //An array used to store the go to grade calculator
+    private android.support.design.widget.FloatingActionButton[] addBTNs; //An array of the add a new evaluation buttons
+    private int current=1; //Stores how many coures are currently active on the screen
     private int button=0;
 
     @Override
@@ -38,6 +38,7 @@ public class GPActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gpacalulator);
         findViewById(R.id.btnEdit).setVisibility(View.INVISIBLE);
 
+        //Filling the names array with its textfields
         names[0]=findViewById(R.id.etxtCourse1);
         names[1]=findViewById(R.id.etxtCourse2);
         names[2]=findViewById(R.id.etxtCourse3);
@@ -79,7 +80,7 @@ public class GPActivity extends AppCompatActivity {
         names[38]=findViewById(R.id.etxtCourse39);
         names[39]=findViewById(R.id.etxtCourse40);
 
-
+        //Filling the grades array with its textfields
         grade[0]=findViewById(R.id.etxtGrade1G);
         grade[1]=findViewById(R.id.etxtGrade2G);
         grade[2]=findViewById(R.id.etxtGrade3G);
@@ -121,6 +122,7 @@ public class GPActivity extends AppCompatActivity {
         grade[38]=findViewById(R.id.etxtGrade39G);
         grade[39]=findViewById(R.id.etxtGrade40G);
 
+        //Filling the weight array with its textfields
         weight[0]=findViewById(R.id.etxtCredit1);
         weight[1]=findViewById(R.id.etxtCredit2);
         weight[2]=findViewById(R.id.etxtCredit3);
@@ -162,7 +164,7 @@ public class GPActivity extends AppCompatActivity {
         weight[38]=findViewById(R.id.etxtCredit39);
         weight[39]=findViewById(R.id.etxtCredit40);
 
-
+        //Filling the btnGoToGradeCalculator with its buttons
         btnGoToGradeCalculator[0]=findViewById(R.id.btnCalculator1);
         btnGoToGradeCalculator[1]=findViewById(R.id.btnCalculator2);
         btnGoToGradeCalculator[2]=findViewById(R.id.btnCalculator3);
@@ -204,7 +206,7 @@ public class GPActivity extends AppCompatActivity {
         btnGoToGradeCalculator[38]=findViewById(R.id.btnCalculator39);
         btnGoToGradeCalculator[39]=findViewById(R.id.btnCalculator40);
 
-
+        //Filling the addBtns array with its buttons
         addBTNs[0]=findViewById(R.id.btnAdd1);
         addBTNs[1]=findViewById(R.id.btnAdd2);
         addBTNs[2]=findViewById(R.id.btnAdd3);
@@ -246,21 +248,22 @@ public class GPActivity extends AppCompatActivity {
         addBTNs[38]=findViewById(R.id.btnAdd39);
 
 
-
+        //Making sure only 1 evaluation with its respective parts are visible at intial state of the acitvity 
         for (int x=1; x<names.length; x++){
             names[x].setVisibility(View.INVISIBLE);
             grade[x].setVisibility(View.INVISIBLE);
             weight[x].setVisibility(View.INVISIBLE);
             btnGoToGradeCalculator[x].setVisibility(View.INVISIBLE);
-            if (x<addBTNs.length) addBTNs[x].hide();
+            if (x<addBTNs.length) addBTNs[x].hide(); //Making sure add btn's are all hidden expect for 1st one. 
         }
 
 
-        this.provinceSpinner = findViewById(R.id.spProvince);
+        this.provinceSpinner = findViewById(R.id.spProvince); //Getting spinner from XML and linking it with field
         final ArrayAdapter<String> provinceAdapter = new ArrayAdapter<String>(GPActivity.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.provinces));
         provinceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         provinceSpinner.setAdapter(provinceAdapter);
 
+        //Setting up a spinner listener so that the school spinner updates when different provinces are selected
         provinceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
 
@@ -318,7 +321,7 @@ public class GPActivity extends AppCompatActivity {
                 }
             }
             @Override
-
+            //if nothing was selected then nothing needs to be done 
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
@@ -326,6 +329,7 @@ public class GPActivity extends AppCompatActivity {
         });
     }
 
+    //Is initiated if the calculate button is hit
     public void CalculateOnClick (View view){
         GPACalculator gpacalculator= new GPACalculator();
         GradeCalculator gradeCalculator= new GradeCalculator();
@@ -337,8 +341,9 @@ public class GPActivity extends AppCompatActivity {
         AlertDialog.Builder alert=new AlertDialog.Builder(GPActivity.this);
         alert.setCancelable(true);
         boolean incomplete=false;
-
-        if (this.current>0) {
+        
+//Making sure that all the information is complete before calculating
+        if (this.current>0) { //If everything is complete and there is more then 1 courses are filled in
             EditText credit1 = findViewById(R.id.etxtCredit1);
             EditText grade1 = findViewById(R.id.etxtGrade1G);
             if (grade1.getText().toString().isEmpty() || credit1.getText().toString().isEmpty()){
@@ -355,7 +360,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade1.getText().toString()), 2.0 * Double.parseDouble(credit1.getText().toString())));
         }
-        if (this.current>1&& !incomplete) {
+        if (this.current>1&& !incomplete) { //If everything is complete and there is more then 2 courses are filled in
             EditText credit2 = findViewById(R.id.etxtCredit2);
             EditText grade2 = findViewById(R.id.etxtGrade2G);
             if (grade2.getText().toString().isEmpty() || credit2.getText().toString().isEmpty()){
@@ -372,7 +377,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade2.getText().toString()), 2.0 * Double.parseDouble(credit2.getText().toString())));
         }
-        if (this.current>2&& !incomplete) {
+        if (this.current>2&& !incomplete) { //If everything is complete and there is more then 3 courses are filled in
             EditText credit3 = findViewById(R.id.etxtCredit3);
             EditText grade3 = findViewById(R.id.etxtGrade3G);
             if (grade3.getText().toString().isEmpty() || credit3.getText().toString().isEmpty()){
@@ -389,7 +394,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade3.getText().toString()), 2.0 * Double.parseDouble(credit3.getText().toString())));
         }
-        if (this.current>3&& !incomplete) {
+        if (this.current>3&& !incomplete) { //If everything is complete and there is more then 4 courses are filled in
             EditText credit4 = findViewById(R.id.etxtCredit4);
             EditText grade4 = findViewById(R.id.etxtGrade4G);
             if (grade4.getText().toString().isEmpty() || credit4.getText().toString().isEmpty()){
@@ -406,7 +411,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade4.getText().toString()), 2.0 * Double.parseDouble(credit4.getText().toString())));
         }
-        if (this.current>4&& !incomplete) {
+        if (this.current>4&& !incomplete) { //If everything is complete and there is more then 5 courses are filled in
             EditText credit5 = findViewById(R.id.etxtCredit5);
             EditText grade5 = findViewById(R.id.etxtGrade5G);
             if (grade5.getText().toString().isEmpty() || credit5.getText().toString().isEmpty()){
@@ -423,7 +428,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade5.getText().toString()), 2.0 * Double.parseDouble(credit5.getText().toString())));
         }
-        if (this.current>5&& !incomplete) {
+        if (this.current>5&& !incomplete) { //If everything is complete and there is more then 6 courses are filled in
             EditText credit6 = findViewById(R.id.etxtCredit6);
             EditText grade6 = findViewById(R.id.etxtGrade6G);
             if (grade6.getText().toString().isEmpty() || credit6.getText().toString().isEmpty()){
@@ -440,7 +445,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade6.getText().toString()), 2.0 * Double.parseDouble(credit6.getText().toString())));
         }
-        if (this.current>6&& !incomplete) {
+        if (this.current>6&& !incomplete) { //If everything is complete and there is more then 7 courses are filled in
             EditText credit7 = findViewById(R.id.etxtCredit7);
             EditText grade7 = findViewById(R.id.etxtGrade7G);
             if (grade7.getText().toString().isEmpty() || credit7.getText().toString().isEmpty()){
@@ -457,7 +462,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade7.getText().toString()), 2.0 * Double.parseDouble(credit7.getText().toString())));
         }
-        if (this.current>7&& !incomplete) {
+        if (this.current>7&& !incomplete) { //If everything is complete and there is more then 8 courses are filled in
             EditText credit8 = findViewById(R.id.etxtCredit8);
             EditText grade8 = findViewById(R.id.etxtGrade8G);
             if (grade8.getText().toString().isEmpty() || credit8.getText().toString().isEmpty()){
@@ -474,7 +479,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade8.getText().toString()), 2.0 * Double.parseDouble(credit8.getText().toString())));
         }
-        if (this.current>8&& !incomplete) {
+        if (this.current>8&& !incomplete) {//If everything is complete and there is more then 8 courses are filled in
             EditText credit9 = findViewById(R.id.etxtCredit9);
             EditText grade9 = findViewById(R.id.etxtGrade9G);
             if (grade9.getText().toString().isEmpty() || credit9.getText().toString().isEmpty()){
@@ -491,7 +496,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade9.getText().toString()), 2.0 * Double.parseDouble(credit9.getText().toString())));
         }
-        if (this.current>9 && !incomplete) {
+        if (this.current>9 && !incomplete) { //If everything is complete and there is more then 9 courses are filled in
             EditText credit10 = findViewById(R.id.etxtCredit10);
             EditText grade10 = findViewById(R.id.etxtGrade10G);
             if (grade10.getText().toString().isEmpty() || credit10.getText().toString().isEmpty()){
@@ -508,7 +513,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade10.getText().toString()), 2.0 * Double.parseDouble(credit10.getText().toString())));
         }
-        if (this.current>10 && !incomplete) {
+        if (this.current>10 && !incomplete) { //If everything is complete and there is more then 10 courses are filled in
             EditText credit11 = findViewById(R.id.etxtCredit11);
             EditText grade11 = findViewById(R.id.etxtGrade11G);
             if (grade11.getText().toString().isEmpty() || credit11.getText().toString().isEmpty()){
@@ -525,7 +530,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade11.getText().toString()), 2.0 * Double.parseDouble(credit11.getText().toString())));
         }
-        if (this.current>11 && !incomplete) {
+        if (this.current>11 && !incomplete) { //If everything is complete and there is more then 11 courses are filled in
             EditText credit12 = findViewById(R.id.etxtCredit12);
             EditText grade12 = findViewById(R.id.etxtGrade12G);
             if (grade12.getText().toString().isEmpty() || credit12.getText().toString().isEmpty()){
@@ -542,7 +547,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade12.getText().toString()), 2.0 * Double.parseDouble(credit12.getText().toString())));
         }
-        if (this.current>13 && !incomplete) {
+        if (this.current>13 && !incomplete) { //If everything is complete and there is more then 12 courses are filled in
             EditText credit13 = findViewById(R.id.etxtCredit13);
             EditText grade13 = findViewById(R.id.etxtGrade13G);
             if (grade13.getText().toString().isEmpty() || credit13.getText().toString().isEmpty()){
@@ -559,7 +564,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade13.getText().toString()), 2.0 * Double.parseDouble(credit13.getText().toString())));
         }
-        if (this.current>13 && !incomplete) {
+        if (this.current>13 && !incomplete) {//If everything is complete and there is more then 13 courses are filled in
             EditText credit14 = findViewById(R.id.etxtCredit14);
             EditText grade14 = findViewById(R.id.etxtGrade14G);
             if (grade14.getText().toString().isEmpty() || credit14.getText().toString().isEmpty()){
@@ -576,7 +581,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade14.getText().toString()), 2.0 * Double.parseDouble(credit14.getText().toString())));
         }
-        if (this.current>14 && !incomplete) {
+        if (this.current>14 && !incomplete) { //If everything is complete and there is more then 14 courses are filled in
             EditText credit15 = findViewById(R.id.etxtCredit15);
             EditText grade15 = findViewById(R.id.etxtGrade15G);
             if (grade15.getText().toString().isEmpty() || credit15.getText().toString().isEmpty()){
@@ -593,7 +598,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade15.getText().toString()), 2.0 * Double.parseDouble(credit15.getText().toString())));
         }
-        if (this.current>15 && !incomplete) {
+        if (this.current>15 && !incomplete) { //If everything is complete and there is more then 15 courses are filled in
             EditText credit16 = findViewById(R.id.etxtCredit16);
             EditText grade16 = findViewById(R.id.etxtGrade16G);
             if (grade16.getText().toString().isEmpty() || credit16.getText().toString().isEmpty()){
@@ -610,7 +615,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade16.getText().toString()), 2.0 * Double.parseDouble(credit16.getText().toString())));
         }
-        if (this.current>16 && !incomplete) {
+        if (this.current>16 && !incomplete) {//If everything is complete and there is more then 16 courses are filled in
             EditText credit17 = findViewById(R.id.etxtCredit17);
             EditText grade17 = findViewById(R.id.etxtGrade17G);
             if (grade17.getText().toString().isEmpty() || credit17.getText().toString().isEmpty()){
@@ -627,7 +632,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade17.getText().toString()), 2.0 * Double.parseDouble(credit17.getText().toString())));
         }
-        if (this.current>17 && !incomplete) {
+        if (this.current>17 && !incomplete) {//If everything is complete and there is more then 17 courses are filled in
             EditText credit18 = findViewById(R.id.etxtCredit18);
             EditText grade18 = findViewById(R.id.etxtGrade18G);
             if (grade18.getText().toString().isEmpty() || credit18.getText().toString().isEmpty()){
@@ -644,7 +649,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade18.getText().toString()), 2.0 * Double.parseDouble(credit18.getText().toString())));
         }
-        if (this.current>18 && !incomplete) {
+        if (this.current>18 && !incomplete) {//If everything is complete and there is more then 18 courses are filled in
             EditText credit19 = findViewById(R.id.etxtCredit19);
             EditText grade19 = findViewById(R.id.etxtGrade19G);
             if (grade19.getText().toString().isEmpty() || credit19.getText().toString().isEmpty()){
@@ -661,7 +666,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade19.getText().toString()), 2.0 * Double.parseDouble(credit19.getText().toString())));
         }
-        if (this.current>19 && !incomplete) {
+        if (this.current>19 && !incomplete) {//If everything is complete and there is more then 19 courses are filled in
             EditText credit20 = findViewById(R.id.etxtCredit20);
             EditText grade20 = findViewById(R.id.etxtGrade20G);
             if (grade20.getText().toString().isEmpty() || credit20.getText().toString().isEmpty()){
@@ -678,7 +683,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade20.getText().toString()), 2.0 * Double.parseDouble(credit20.getText().toString())));
         }
-        if (this.current>20 && !incomplete) {
+        if (this.current>20 && !incomplete) {//If everything is complete and there is more then 20 courses are filled in
             EditText credit21 = findViewById(R.id.etxtCredit21);
             EditText grade21 = findViewById(R.id.etxtGrade21G);
             if (grade21.getText().toString().isEmpty() || credit21.getText().toString().isEmpty()){
@@ -695,7 +700,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade21.getText().toString()), 2.0 * Double.parseDouble(credit21.getText().toString())));
         }
-        if (this.current>21 && !incomplete) {
+        if (this.current>21 && !incomplete) {//If everything is complete and there is more then 21 courses are filled in
             EditText credit22 = findViewById(R.id.etxtCredit22);
             EditText grade22 = findViewById(R.id.etxtGrade22G);
             if (grade22.getText().toString().isEmpty() || credit22.getText().toString().isEmpty()){
@@ -712,7 +717,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade22.getText().toString()), 2.0 * Double.parseDouble(credit22.getText().toString())));
         }
-        if (this.current>22 && !incomplete) {
+        if (this.current>22 && !incomplete) {//If everything is complete and there is more then 22 courses are filled in
             EditText credit23 = findViewById(R.id.etxtCredit23);
             EditText grade23= findViewById(R.id.etxtGrade23G);
             if (grade23.getText().toString().isEmpty() || credit23.getText().toString().isEmpty()){
@@ -729,7 +734,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade23.getText().toString()), 2.0 * Double.parseDouble(credit23.getText().toString())));
         }
-        if (this.current>23 && !incomplete) {
+        if (this.current>23 && !incomplete) {//If everything is complete and there is more then 23 courses are filled in
             EditText credit24 = findViewById(R.id.etxtCredit24);
             EditText grade24 = findViewById(R.id.etxtGrade24G);
             if (grade24.getText().toString().isEmpty() || credit24.getText().toString().isEmpty()){
@@ -746,7 +751,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade24.getText().toString()), 2.0 * Double.parseDouble(credit24.getText().toString())));
         }
-        if (this.current>24 && !incomplete) {
+        if (this.current>24 && !incomplete) {//If everything is complete and there is more then 24 courses are filled in
             EditText credit25 = findViewById(R.id.etxtCredit25);
             EditText grade25 = findViewById(R.id.etxtGrade25G);
             if (grade25.getText().toString().isEmpty() || credit25.getText().toString().isEmpty()){
@@ -763,7 +768,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade25.getText().toString()), 2.0 * Double.parseDouble(credit25.getText().toString())));
         }
-        if (this.current>25 && !incomplete) {
+        if (this.current>25 && !incomplete) {//If everything is complete and there is more then 25 courses are filled in
             EditText credit26 = findViewById(R.id.etxtCredit26);
             EditText grade26 = findViewById(R.id.etxtGrade26G);
             if (grade26.getText().toString().isEmpty() || credit26.getText().toString().isEmpty()){
@@ -780,7 +785,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade26.getText().toString()), 2.0 * Double.parseDouble(credit26.getText().toString())));
         }
-        if (this.current>26 && !incomplete) {
+        if (this.current>26 && !incomplete) {//If everything is complete and there is more then 26 courses are filled in
             EditText credit27 = findViewById(R.id.etxtCredit27);
             EditText grade27 = findViewById(R.id.etxtGrade27G);
             if (grade27.getText().toString().isEmpty() || credit27.getText().toString().isEmpty()){
@@ -797,7 +802,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade27.getText().toString()), 2.0 * Double.parseDouble(credit27.getText().toString())));
         }
-        if (this.current>27 && !incomplete) {
+        if (this.current>27 && !incomplete) {//If everything is complete and there is more then 27 courses are filled in
             EditText credit28 = findViewById(R.id.etxtCredit28);
             EditText grade28 = findViewById(R.id.etxtGrade28G);
             if (grade28.getText().toString().isEmpty() || credit28.getText().toString().isEmpty()){
@@ -813,7 +818,7 @@ public class GPActivity extends AppCompatActivity {
                 incomplete=true;
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade28.getText().toString()), 2.0 * Double.parseDouble(credit28.getText().toString())));
-        }if (this.current>28 && !incomplete) {
+        }if (this.current>28 && !incomplete) {//If everything is complete and there is more then 28 courses are filled in
             EditText credit29 = findViewById(R.id.etxtCredit29);
             EditText grade29 = findViewById(R.id.etxtGrade29G);
             if (grade29.getText().toString().isEmpty() || credit29.getText().toString().isEmpty()){
@@ -829,7 +834,7 @@ public class GPActivity extends AppCompatActivity {
                 incomplete=true;
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade29.getText().toString()), 2.0 * Double.parseDouble(credit29.getText().toString())));
-        }if (this.current>29 && !incomplete) {
+        }if (this.current>29 && !incomplete) {//If everything is complete and there is more then 29 courses are filled in
             EditText credit30 = findViewById(R.id.etxtCredit30);
             EditText grade30 = findViewById(R.id.etxtGrade30G);
             if (grade30.getText().toString().isEmpty() || credit30.getText().toString().isEmpty()){
@@ -845,7 +850,7 @@ public class GPActivity extends AppCompatActivity {
                 incomplete=true;
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade30.getText().toString()), 2.0 * Double.parseDouble(credit30.getText().toString())));
-        }if (this.current>30 && !incomplete) {
+        }if (this.current>30 && !incomplete) {//If everything is complete and there is more then 30 courses are filled in
             EditText credit31 = findViewById(R.id.etxtCredit31);
             EditText grade31 = findViewById(R.id.etxtGrade31G);
             if (grade31.getText().toString().isEmpty() || credit31.getText().toString().isEmpty()){
@@ -861,7 +866,7 @@ public class GPActivity extends AppCompatActivity {
                 incomplete=true;
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade31.getText().toString()), 2.0 * Double.parseDouble(credit31.getText().toString())));
-        }if (this.current>31 && !incomplete) {
+        }if (this.current>31 && !incomplete) {//If everything is complete and there is more then 31 courses are filled in
             EditText credit32 = findViewById(R.id.etxtCredit32);
             EditText grade32 = findViewById(R.id.etxtGrade32G);
             if (grade32.getText().toString().isEmpty() || credit32.getText().toString().isEmpty()){
@@ -877,7 +882,7 @@ public class GPActivity extends AppCompatActivity {
                 incomplete=true;
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade32.getText().toString()), 2.0 * Double.parseDouble(credit32.getText().toString())));
-        }if (this.current>32 && !incomplete) {
+        }if (this.current>32 && !incomplete) {//If everything is complete and there is more then 32 courses are filled in
             EditText credit33 = findViewById(R.id.etxtCredit33);
             EditText grade33 = findViewById(R.id.etxtGrade33G);
             if (grade33.getText().toString().isEmpty() || credit33.getText().toString().isEmpty()){
@@ -894,7 +899,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade33.getText().toString()), 2.0 * Double.parseDouble(credit33.getText().toString())));
         }
-        if (this.current>33 && !incomplete) {
+        if (this.current>33 && !incomplete) {//If everything is complete and there is more then 33 courses are filled in
             EditText credit34 = findViewById(R.id.etxtCredit34);
             EditText grade34 = findViewById(R.id.etxtGrade34G);
             if (grade34.getText().toString().isEmpty() || credit34.getText().toString().isEmpty()){
@@ -910,7 +915,7 @@ public class GPActivity extends AppCompatActivity {
                 incomplete=true;
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade34.getText().toString()), 2.0 * Double.parseDouble(credit34.getText().toString())));
-        }if (this.current>34 && !incomplete) {
+        }if (this.current>34 && !incomplete) {//If everything is complete and there is more then 34 courses are filled in
             EditText credit35 = findViewById(R.id.etxtCredit35);
             EditText grade35 = findViewById(R.id.etxtGrade35G);
             if (grade35.getText().toString().isEmpty() || credit35.getText().toString().isEmpty()){
@@ -927,7 +932,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade35.getText().toString()), 2.0 * Double.parseDouble(credit35.getText().toString())));
         }
-        if (this.current>35 && !incomplete) {
+        if (this.current>35 && !incomplete) {//If everything is complete and there is more then 35 courses are filled in
             EditText credit36 = findViewById(R.id.etxtCredit36);
             EditText grade36 = findViewById(R.id.etxtGrade36G);
             if (grade36.getText().toString().isEmpty() || credit36.getText().toString().isEmpty()){
@@ -943,7 +948,7 @@ public class GPActivity extends AppCompatActivity {
                 incomplete=true;
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade36.getText().toString()), 2.0 * Double.parseDouble(credit36.getText().toString())));
-        }if (this.current>36 && !incomplete) {
+        }if (this.current>36 && !incomplete) {//If everything is complete and there is more then 36 courses are filled in
             EditText credit37 = findViewById(R.id.etxtCredit37);
             EditText grade37 = findViewById(R.id.etxtGrade37G);
             if (grade37.getText().toString().isEmpty() || credit37.getText().toString().isEmpty()){
@@ -959,7 +964,7 @@ public class GPActivity extends AppCompatActivity {
                 incomplete=true;
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade37.getText().toString()), 2.0 * Double.parseDouble(credit37.getText().toString())));
-        }if (this.current>37 && !incomplete) {
+        }if (this.current>37 && !incomplete) {//If everything is complete and there is more then 37 courses are filled in
             EditText credit38 = findViewById(R.id.etxtCredit38);
             EditText grade38 = findViewById(R.id.etxtGrade38G);
             if (grade38.getText().toString().isEmpty() || credit38.getText().toString().isEmpty()){
@@ -976,7 +981,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade38.getText().toString()), 2.0 * Double.parseDouble(credit38.getText().toString())));
         }
-        if (this.current>38 && !incomplete) {
+        if (this.current>38 && !incomplete) {//If everything is complete and there is more then 38 courses are filled in
             EditText credit39 = findViewById(R.id.etxtCredit39);
             EditText grade39 = findViewById(R.id.etxtGrade39G);
             if (grade39.getText().toString().isEmpty() || credit39.getText().toString().isEmpty()){
@@ -993,7 +998,7 @@ public class GPActivity extends AppCompatActivity {
             }
             else grades.addGrade(new Grade(Double.parseDouble(grade39.getText().toString()), 2.0 * Double.parseDouble(credit39.getText().toString())));
         }
-        if (this.current>39 && !incomplete) {
+        if (this.current>39 && !incomplete) {//If everything is complete and all 40 courses are filled in
             EditText credit40 = findViewById(R.id.etxtCredit40);
             EditText grade40 = findViewById(R.id.etxtGrade40G);
             if (grade40.getText().toString().isEmpty() || credit40.getText().toString().isEmpty()){
@@ -1011,7 +1016,7 @@ public class GPActivity extends AppCompatActivity {
             else grades.addGrade(new Grade(Double.parseDouble(grade40.getText().toString()), 2.0 * Double.parseDouble(credit40.getText().toString())));
         }
 
-        if (!incomplete) {
+        if (!incomplete) { //Then we call on calculator and let it do its work 
             Double temp = gpacalculator.calculateGPA(grades, school);
             Double temp2 = gradeCalculator.calculatorWeightedAverage(grades);
 
@@ -1034,7 +1039,7 @@ public class GPActivity extends AppCompatActivity {
 
     }
 
-    public void addCourse(View view) {
+    public void addCourse(View view) { //Actives when the + button is hit on the activity to add another course with its attributes
         if (current<names.length) {
             names[current].setVisibility(View.VISIBLE);
             grade[current].setVisibility(View.VISIBLE);
@@ -1046,15 +1051,15 @@ public class GPActivity extends AppCompatActivity {
         }
     }
 
-    public void RestartOnClick(View view){
+    public void RestartOnClick(View view){ //USed when the restart btn is clicked to clean restart activity 
         Intent restartIntent= new Intent(GPActivity.this, GPActivity.class);
         GPActivity.this.startActivity(restartIntent);
     }
-    public void homeOnClick(View view){
+    public void homeOnClick(View view){ //USed when the home button is clicked to go back to home screen
         Intent mainIntent= new Intent(GPActivity.this, MainActivity.class);
         GPActivity.this.startActivity(mainIntent);
     }
-    public void editOnClick(View view){
+    public void editOnClick(View view){ //Used to enable all the fields so the info can be edited again 
         findViewById(R.id.btnCalculate).setVisibility(View.VISIBLE);
         findViewById(R.id.btnEdit).setVisibility(View.INVISIBLE);
         ((TextView)findViewById(R.id.gpa)).setText("");
@@ -1070,6 +1075,8 @@ public class GPActivity extends AppCompatActivity {
         findViewById(R.id.spSchool).setVisibility(View.VISIBLE);
         findViewById(R.id.spProvince).setVisibility(View.VISIBLE);
     }
+    
+    //If the Go to Calcualtor is called in the nth Course. Then go use get grade to start new activity
     public void onClickCalculator1 (View view){
         this.button=1;
         getGrade();
@@ -1237,7 +1244,7 @@ public class GPActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) { //Put the answer on the screen
 
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
