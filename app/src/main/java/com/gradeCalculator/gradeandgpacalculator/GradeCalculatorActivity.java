@@ -22,10 +22,10 @@ public class GradeCalculatorActivity extends AppCompatActivity {
     private int current=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        names= new EditText[10];
-        weight=new EditText[10];
-        grade= new EditText[10];
-        addBTNs= new android.support.design.widget.FloatingActionButton[9];
+        names= new EditText[10]; //Stores the names of the evaulations in the course
+        weight=new EditText[10]; //Stores the weight of each eavualtion for the course 
+        grade= new EditText[10]; //Stores the grade recieved for each evaluation for the course 
+        addBTNs= new android.support.design.widget.FloatingActionButton[9]; //Stores the buttons to add a new evaluation
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gradecalculator);
