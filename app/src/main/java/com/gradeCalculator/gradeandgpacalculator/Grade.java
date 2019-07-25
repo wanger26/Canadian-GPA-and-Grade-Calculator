@@ -1,5 +1,5 @@
 package com.gradeCalculator.gradeandgpacalculator;
-
+//Represents grade with weight
 public class Grade {
 
     private double grade, weight;
