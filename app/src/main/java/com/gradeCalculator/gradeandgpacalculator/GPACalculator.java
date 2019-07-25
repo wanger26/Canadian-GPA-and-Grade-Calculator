@@ -5,10 +5,10 @@ import java.util.Iterator;
 public class GPACalculator {
     public GPACalculator(){}
 
+    /**
+    // This method takes in the school's name and the grades provided by the user and will then call on the correct GPA scale calcualtor
+    */
     public double calculateGPA(Grades grades, String school){
-        System.out.print(school);
-        System.out.print("-----------------------------------------------------------------------------------");
-
         if (school.equals("Athabasca University")||school.equals("Concordia University of Edmonton")||school.equals("The King's University")||school.equals("University of Lethbridge"))
             return type1(grades);
         else if (school.equals("MacEwan University"))
@@ -1058,7 +1058,6 @@ public class GPACalculator {
         while (itr.hasNext()){
             Grade current= itr.next();
             credit=credit+current.getWeight();
-            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Weight="+current.getWeight()+"\t Grade:"+current.getGrade());
             if (current.getGrade()>=90){
                 answer=answer+(4*current.getWeight());
             }
@@ -1099,7 +1098,6 @@ public class GPACalculator {
         double finalAnswer=answer/credit;
         answer=finalAnswer*1000;
         finalAnswer=Math.round(answer);
-        System.out.println("Here------------------------------------------------------------------:"+credit);
         return finalAnswer/1000;
     }
     private double type25 (Grades grades){
