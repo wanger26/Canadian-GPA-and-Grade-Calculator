@@ -8,6 +8,7 @@ import android.view.View;
 
 import static android.util.Log.*;
 
+//This is the main menu screen
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -16,11 +17,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    //If the Grade Calculator Buttom is pressed then start its Activity
     public void btnGradeCalculatorOnClick(View view){
         Intent gradeIntent= new Intent(MainActivity.this, GradeCalculatorActivity.class);
         MainActivity.this.startActivity(gradeIntent);
     }
-
+    
+    //If the GPA Calculator Buttom is pressed then start its Activity
     public void btnGPAOnClick(View view){
         Intent gradeIntent= new Intent(MainActivity.this, GPActivity.class);
         MainActivity.this.startActivity(gradeIntent);
