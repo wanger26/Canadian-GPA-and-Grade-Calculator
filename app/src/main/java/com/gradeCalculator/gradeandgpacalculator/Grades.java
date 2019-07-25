@@ -3,6 +3,7 @@ package com.gradeCalculator.gradeandgpacalculator;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+//Represents an obejct with all the grades of the user
 public class Grades {
     private LinkedList <Grade> grades;
     public Grades (){
